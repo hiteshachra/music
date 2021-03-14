@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <title>Music Player </title>
+</head>
+
+<body>
+    <div class="main-div">
+        <div class="music-container">
+            <h2 id="title">Aye Khuda</h2>
+            <h3 id="artist">Arijit Singh</h3>
+            <div class="img-container">
+                <img src="1.jpg" alt="">
+            </div>
+            <audio src="1.mp3"></audio>
+
+            <!-- ------controls---- -->
+            <div class="controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play" id="play" title="Play/Pause"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const music = document.querySelector("audio");
+        const img = document.querySelector("img");
+        const play = document.getElementById("play");
+        const title = document.getElementById("title");
+        const artist = document.getElementById("artist");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+        
+      
+
+        let playing = false;
+
+        const playMusic = () => {
+            playing = true;
+            music.play();
+            play.classList.replace("fa-play", "fa-pause");
+            play.classList.add("anime");
+            img.classList.add("anime");
+        }
+            ;
+
+        const pauseMusic = () => {
+            playing = false;
+            music.pause();
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+            play.classList.remove("anime");
+        };
+
+        play.addEventListener("click", () => {
+            if (playing) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        });
+
+    // ------------------changing the music----------
+
+    const Songs = [
+            {
+                name:1,
+                title:"Aye Khuda",
+                artist:"Arijit Singh",
+            },
+            {
+                name:2,
+                title:"Te Amo",
+                artist:"Ash King and Sunidhi Chauhan",
+            },
+            {
+                name:3,
+                title:"Give me some",
+                artist:"Sharman Joshi",
+            }
+        ];
+const loadsongs = (Songs)=>{
+title.textContent = Songs.title;
+artist.textContent = Songs.artist;
+music.src=Songs.name+".mp3";
+img.src=Songs.name+".jpg"
+};
+ let songIndex=0;
+ 
+ const nextsong = ()=> {
+     songIndex=(songIndex+1) % Songs.length;
+    loadsongs(Songs[songIndex]);
+    playMusic();
+ };
+ const prevsong = ()=> { 
+     songIndex=(songIndex-1+Songs.length) % Songs.length;
+    loadsongs(Songs[songIndex]);
+    playMusic();
+ };
+
+
+next.addEventListener('click', nextsong);
+prev.addEventListener('click', prevsong);
+    </script>
+</body>
+
+</html>
